@@ -19,7 +19,7 @@ function App() {
 
   return (
     <>
-      <h1>Coffee aur react</h1>
+      <h1>First react code using the usestate hook </h1>
       <h2>Count value : {counter}</h2>
       <button onClick={addValue}>Add Value</button>
       <br />
