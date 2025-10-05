@@ -33,10 +33,23 @@ function App() {
             readOnly
            />
            <button
-           className='rounded bg-white px-4 py-2 '>Copy</button>
+           className='rounded bg-blue-400 px-4 py-2 text-white'>Copy</button>
         </div>
-        <label className='text-white
+        <div>
+          <input 
+            type="range"
+            min={6}
+            max={100}
+            value={length} 
+            onChange={(e)=>{
+              setLength(e.target.value)
+            }}/>
+        <label className='text-white mr-2
         '> length : {length}</label>
+      
+
+        </div>
+        
       </div>
     </>
   )
