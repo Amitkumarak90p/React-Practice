@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 function App() {
   const [length, setLength] = useState(8)
   const [numberAllowed , setNumberAllowed] = useState(false)
   const [charAllowed , setCharAllowed] = useState(false)
   const [password , setPassword] = useState('')
+  const passref = useRef(null)
 
   const passwordGenerator = useCallback(()=>{
     let pass = ''
@@ -12,7 +13,7 @@ function App() {
     if(numberAllowed) str+= '0123456789'
     if(charAllowed) str+= '{[}]|/?.><,)(/*+=-^`~'
 
-    for(let i =1 ; i<array.length ;i++){
+    for(let i =1 ; i<=length ;i++){
       let char = Math.floor(Math.random()*str.length + 1)
       pass += str.charAt(char)
     }
@@ -20,20 +21,32 @@ function App() {
   }
    , [length, numberAllowed, charAllowed,setPassword] )
 
+   const copyToClipboard = useCallback(()=>{
+    passref.current?.select()
+    passref.current?.setSelectionRange(0,length)
+    window.navigator.clipboard.writeText(password)
+   } , [password])
+
+  useEffect(()=>{
+    passwordGenerator()
+  } , [length,numberAllowed,charAllowed,passwordGenerator])
+
   return (
     <>
-      <div className='w-full h-full bg-black max-w-3xl flex flex-col gap-4 justify-center px-4 py-4'>
+      <div className='w-full h-full bg-black max-w-2xl flex flex-col gap-4 justify-center px-4 py-4'>
         <h1 className='text-3xl font-bold text-center mt-10 text-white'>Password Generator</h1>
         <div className=' p-4'>
           <input type="text"
            value={password}
             name="password"
             placeholder='Password' 
-            className='p-2 rounded bg-gray-800 text-white text-center w-xl'
+            className='p-2 rounded bg-gray-800 text-white text-center w-lg'
             readOnly
+            ref={passref}
            />
            <button
-           className='rounded bg-blue-400 px-4 py-2 text-white'>Copy</button>
+           onClick={copyToClipboard}
+           className='rounded bg-blue-400 px-4 py-2 text-white cursor-pointer'>Copy</button>
         </div>
         <div>
           <input 
@@ -46,8 +59,25 @@ function App() {
             }}/>
         <label className='text-white mr-2
         '> length : {length}</label>
-      
 
+          <input type="checkbox" 
+          value={numberAllowed}
+          defaultChecked={numberAllowed}
+          id='numberinput'
+          onChange={()=>{
+            setNumberAllowed((prev) => !prev)
+          }}
+           />
+           <label htmlFor='numberinput' className='text-white'> Number </label>
+          <input type="checkbox" 
+          value={charAllowed}
+          defaultChecked={charAllowed}
+          id='charinput'
+          onChange={()=>{
+            setCharAllowed((prev) => !prev)
+          }}
+           />
+           <label htmlFor="charinput" className='text-white'> Characters </label>
         </div>
         
       </div>
