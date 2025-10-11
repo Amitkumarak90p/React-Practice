@@ -21,15 +21,18 @@ function App() {
         <p className='text-2xl text-white'>{quote}</p>
       </div> */}
 
-      <div className='w-full h-full flex justify-center align-middle'>
-        <div className='bg-amber-400 shadow-amber-900 w-5xl h-5xl'>
-          <p className='text-xl'>{quote}</p>
-        </div>
+      <div className='bg-amber-950 w-full h-screen flex flex-col justify-center '>
         <div>
-          <button className='hover:bg-green-500 bg-blue-400 text-white text-2xl px-4 py-2 rounded cursor-pointer '
+          <h1 className='text-5xl text-white text-center mb-5'>Quote Generator</h1>
+        </div>
+        <div className='bg-amber-400 w-5xl h-3xl px-20 py-40 self-center items-center'
+        style={{backgroundImage: `url('https://cdn.pixabay.com/photo/2023/05/02/15/52/support-7965543_1280.jpg')`}}>
+          <img src="" alt="" />
+          <p className='text-xl bg-white w-fit px-4 py-3 rounded-2xl'>" {quote} "</p> <br />
+           <button className='hover:bg-green-500 bg-blue-400 text-white text-2xl px-4 py-2 rounded cursor-pointer'
         onClick={fetchQuote}>
           Generate Quote
-        </button>
+        </button> 
         </div>
       </div>
     </>
